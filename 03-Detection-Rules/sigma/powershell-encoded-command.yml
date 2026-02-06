@@ -1,0 +1,37 @@
+title: Suspicious PowerShell Encoded Command Execution
+id: 9b2e6c2a-ps-encoded-command
+status: experimental
+description: >
+  Detects PowerShell execution using encoded commands (-enc / -encodedcommand),
+  commonly used by attackers to obfuscate payloads and bypass defenses.
+
+author: YourName
+date: 2026-01-01
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+  selection:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains:
+      - '-enc'
+      - '-encodedcommand'
+
+  condition: selection
+
+falsepositives:
+  - Administrative automation scripts
+  - Legitimate encoded deployment tasks
+
+level: high
+
+tags:
+  - attack.execution
+  - attack.t1059.001
+  - attack.defense_evasion
