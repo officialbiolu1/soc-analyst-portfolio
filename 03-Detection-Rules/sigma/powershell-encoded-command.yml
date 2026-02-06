@@ -5,7 +5,7 @@ description: >
   Detects PowerShell execution using encoded commands (-enc / -encodedcommand),
   commonly used by attackers to obfuscate payloads and bypass defenses.
 
-author: YourName
+author: Biolu  Bajomo | github.com /officialbiolu1
 date: 2026-01-01
 references:
   - https://attack.mitre.org/techniques/T1059/001/
