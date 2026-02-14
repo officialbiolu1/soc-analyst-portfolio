@@ -1,0 +1,40 @@
+title: Office Application Spawning PowerShell
+id: 9f32b1c4-office-powershell
+status: experimental
+description: >
+  Detects Microsoft Office applications spawning PowerShell,
+  commonly associated with malicious macro execution and phishing-based attacks.
+
+author: Bioluwaosi Bajomo
+date: 2026-01-01
+references:
+  - https://attack.mitre.org/techniques/T1204/
+  - https://attack.mitre.org/techniques/T1059/001/
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+  selection:
+    ParentImage|endswith:
+      - '\winword.exe'
+      - '\excel.exe'
+      - '\powerpnt.exe'
+      - '\outlook.exe'
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+
+  condition: selection
+
+falsepositives:
+  - Legitimate administrative macro scripts
+  - Internal automation workflows using Office
+
+level: high
+
+tags:
+  - attack.execution
+  - attack.t1204
+  - attack.t1059.001
